@@ -1,18 +1,18 @@
 #![no_std]
 #![no_main]
-use core::{fmt::Write, panic::PanicInfo};
+use core::panic::PanicInfo;
 
 mod vga_buffer;
 
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
-    loop{}
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
+    loop {}
 }
 
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     println!("Helllo World {}", "!");
-
     loop {}
 }
