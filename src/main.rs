@@ -10,9 +10,14 @@ use blog_os::println;
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     println!("Helllo World {}", "!");
+
+    blog_os::init();
+    x86_64::instructions::interrupts::int3();
+
     #[cfg(test)]
     test_main();
 
+    println!("It did not crash!");
     #[allow(clippy::empty_loop)]
     loop {}
 }
