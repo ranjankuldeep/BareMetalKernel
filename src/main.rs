@@ -7,16 +7,15 @@
 use core::panic::PanicInfo;
 use blog_os::println;
 
+fn stack_overflow() {
+    stack_overflow(); // for each recursion, the return address is pushed
+}
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     println!("Helllo World {}", "!");
 
     blog_os::init();
-    x86_64::instructions::interrupts::int3();
-
-    unsafe {
-        *(0xdeadbeef as *mut u8) = 42;
-    };
+    stack_overflow();
 
     #[cfg(test)]
     test_main();
