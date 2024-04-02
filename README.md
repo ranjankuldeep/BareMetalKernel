@@ -1,1 +1,1 @@
-# Building Custom Os for taget x86_64 architecute.
+# Building Custom Os for target x86_64 architecute.
