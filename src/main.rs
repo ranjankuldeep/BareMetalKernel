@@ -7,10 +7,12 @@
 use core::panic::PanicInfo;
 use blog_os::println;
 
+#[allow(unconditional_recursion)] // Allowing the recursion.
 fn stack_overflow() {
     stack_overflow(); // for each recursion, the return address is pushed
 }
-#[no_mangle]
+
+#[no_mangle] // Do not interfer with the name of the function.
 pub extern "C" fn _start() -> ! {
     println!("Helllo World {}", "!");
 
@@ -26,7 +28,7 @@ pub extern "C" fn _start() -> ! {
 }
 
 #[cfg(test)]
-#[panic_handler]
+#[panic_handler] 
 fn panic(info: &PanicInfo) -> ! {
     blog_os::test_panic_handler(info);
 }

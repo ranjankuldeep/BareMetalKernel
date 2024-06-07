@@ -144,6 +144,7 @@ macro_rules! print {
     ($($arg:tt)*) => ($crate::vga_buffer::_print(format_args!($($arg)*)));
 }
 
+// This macro can be used from other modules.
 #[macro_export]
 macro_rules! println {
     () => ($crate::print!("\n"));

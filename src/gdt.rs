@@ -21,7 +21,7 @@ lazy_static! {
     };
 }
 
-
+// It initlizes the variable once asked for and during run time.
 lazy_static! {
     static ref GDT: (GlobalDescriptorTable, Selectors) = {
         let mut gdt = GlobalDescriptorTable::new();
@@ -31,6 +31,8 @@ lazy_static! {
     };
 }
 
+// An old feature known as segmentation of virtual memory, its not in use after paging.
+// But still we need to satisfy some selectors for the compatibility purposes.
 struct Selectors {
     code_selector: SegmentSelector,
     tss_selector: SegmentSelector,
