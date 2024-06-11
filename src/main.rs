@@ -23,7 +23,11 @@ pub extern "C" fn _start() -> ! {
 
     println!("It did not crash!");
     #[allow(clippy::empty_loop)]
-    loop {}
+    loop {
+        use blog_os::print;
+        print!("-");        // new
+    }
+
 }
 
 #[cfg(test)]
