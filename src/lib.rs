@@ -11,6 +11,7 @@ pub mod serial;
 pub mod vga_buffer;
 pub mod interrupt;
 pub mod gdt;
+pub mod hardware_interrupt;
 
 pub trait Testable {
     fn run(&self) -> ();
@@ -76,4 +77,5 @@ pub fn exit_qemu(exit_code: QemuExitCode) {
 pub fn init() {    
     gdt::init();
     interrupt::init_idt();
+    unsafe { hardware_interrupt::PICS.lock().initialize() };
 }
