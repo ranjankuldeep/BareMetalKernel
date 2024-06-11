@@ -1,4 +1,4 @@
-# Building Custom Kernel for target x86_64 architecute.
+# Custom Kernel for target x86_64 architecute.
 Reference Article https://os.phil-opp.com/
 
 ## Target
