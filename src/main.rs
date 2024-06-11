@@ -22,11 +22,7 @@ pub extern "C" fn _start() -> ! {
     test_main();
 
     println!("It did not crash!");
-    #[allow(clippy::empty_loop)]
-    loop {
-        use blog_os::print;
-        print!("-");        // new
-    }
+    blog_os::hlt_loop();   
 
 }
 
@@ -40,5 +36,5 @@ fn panic(info: &PanicInfo) -> ! {
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    blog_os::hlt_loop();   
 }
