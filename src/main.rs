@@ -17,7 +17,6 @@ pub extern "C" fn _start() -> ! {
     println!("Helllo World {}", "!");
 
     blog_os::init();
-    stack_overflow();
 
     #[cfg(test)]
     test_main();

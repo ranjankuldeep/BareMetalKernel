@@ -78,4 +78,5 @@ pub fn init() {
     gdt::init();
     interrupt::init_idt();
     unsafe { hardware_interrupt::PICS.lock().initialize() };
+    x86_64::instructions::interrupts::enable();     // Enabling the interrupts.
 }
