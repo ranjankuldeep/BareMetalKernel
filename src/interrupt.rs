@@ -14,6 +14,8 @@ lazy_static! {
             idt.double_fault.set_handler_fn(double_fault_handler).set_stack_index(gdt::DOUBLE_FAULT_IST_INDEX);
         }
         idt[InterruptIndex::Timer.as_usize()].set_handler_fn(hardware_interrupt::timer_interrupt_handler);
+        idt[InterruptIndex::Keyboard.as_usize()]
+        .set_handler_fn(hardware_interrupt::keyboard_interrupt_handler);
         // Return the struct.
         idt
     };
