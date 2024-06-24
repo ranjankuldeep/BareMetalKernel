@@ -151,10 +151,16 @@ macro_rules! println {
     ($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
 }
 
+/// Prints the given formatted string to the VGA text buffer
+/// through the global `WRITER` instance.
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
     use x86_64::instructions::interrupts; 
-    interrupts::without_interrupts(|| {     // Executes the write only when No interrupt environment.
+
+    // Executes the write only when no interrupt environment.
+    // This will disable the interrupt if enabled when writing,
+    // and enable it again after writing complete.
+    interrupts::without_interrupts(|| {     
         WRITER.lock().write_fmt(args).unwrap();
     });
 }

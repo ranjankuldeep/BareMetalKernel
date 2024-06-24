@@ -3,21 +3,26 @@ use x86_64::structures::idt::InterruptStackFrame;
 use crate::print;
 use lazy_static::lazy_static;
 
+
+// The first free numbers after the 32 exception slots.
 pub const PIC_1_OFFSET: u8 = 32;
 pub const PIC_2_OFFSET: u8 = PIC_1_OFFSET + 8;
 
 // Primary and Secondary Interrupt Controller.
+// PIC - Programmable Interrupt Controller.
 pub static PICS: spin::Mutex<ChainedPics> = 
                     spin::Mutex::new(unsafe { ChainedPics::new(PIC_1_OFFSET, PIC_2_OFFSET) });
 
 #[derive(Debug,Copy,Clone)]
-#[repr(u8)] // For making C-like enum.
+#[repr(u8)] 
 pub enum InterruptIndex {
     Timer = PIC_1_OFFSET,
     Keyboard,
 }
 
 impl InterruptIndex {
+    // Passing the self as the first paramter can make it 
+    // possible to transform the instance to another type.
     pub fn as_u8(self) -> u8 {
         self as u8
     }
@@ -67,6 +72,8 @@ pub extern "x86-interrupt" fn keyboard_interrupt_handler(
         }
     }
 
+    // Sends an EOI signal to notify that interrupt has been handled
+    // and ready to recive new interrupt.
     unsafe {
         PICS.lock()
             .notify_end_of_interrupt(InterruptIndex::Keyboard.as_u8());
